@@ -4,8 +4,8 @@ import sys
 import urllib.request
 
 SOURCES = [
-    ("iptv-org index", "https://iptv-org.github.io/iptv/index.m3u"),
-    ("camo camFR", "https://raw.githubusercontent.com/El-cam0s/camo/main/camFR.m3u"),
+    ("iptv-org", "https://iptv-org.github.io/iptv/index.m3u"),
+    ("Webcam FR", "https://raw.githubusercontent.com/El-cam0s/camo/main/camFR.m3u"),
 ]
 
 OUTFILE = "playlist-final.m3u"
