@@ -1,14 +1,21 @@
-name: Build playlist
+name: Build playlist-final.m3u
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
   schedule:
-    - cron: "17 */6 * * *"   # toutes les 6 heures
+    - cron: "17 */6 * * *"   # toutes les 6h
+  push:
+    paths:
+      - "sources.txt"
+      - "scripts/**"
+      - ".github/workflows/build-playlist.yml"
 
 permissions:
   contents: write
+
+concurrency:
+  group: build-playlist
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -17,14 +24,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build merged playlist
-        run: |
-          python3 tools/merge_m3u.py > playlist-final.m3u
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Commit updated playlist
+      - name: Install deps (none)
+        run: python -V
+
+      - name: Build playlist-final.m3u
+        run: python scripts/merge_playlists.py
+
+      - name: Validate output (must look like M3U and have entries)
         run: |
-          git config user.name "infoRepo-bot"
-          git config user.email "infoRepo-bot@users.noreply.github.com"
+          test -f playlist-final.m3u
+          head -n 1 playlist-final.m3u | grep -q '^#EXTM3U'
+          # au moins 10 entrées EXTINF (ajuste si tu veux)
+          test "$(grep -c '^#EXTINF' playlist-final.m3u)" -ge 10
+
+      - name: Commit playlist-final.m3u
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
           git add playlist-final.m3u
-          git commit -m "Update playlist-final.m3u" || exit 0
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Update playlist-final.m3u"
           git push
