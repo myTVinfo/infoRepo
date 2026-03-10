@@ -5,6 +5,7 @@ import urllib.request
 
 SOURCES = [
     ("iptv-org", "https://iptv-org.github.io/iptv/index.m3u"),
+    ("Free-TV", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"),
     ("Webcam FR", "https://raw.githubusercontent.com/El-cam0s/camo/main/camFR.m3u"),
 ]
 
