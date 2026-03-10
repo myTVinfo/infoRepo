@@ -1,0 +1,30 @@
+name: Build playlist
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: "17 */6 * * *"   # toutes les 6 heures
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build merged playlist
+        run: |
+          python3 tools/merge_m3u.py > playlist-final.m3u
+
+      - name: Commit updated playlist
+        run: |
+          git config user.name "infoRepo-bot"
+          git config user.email "infoRepo-bot@users.noreply.github.com"
+          git add playlist-final.m3u
+          git commit -m "Update playlist-final.m3u" || exit 0
+          git push
