@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/El-cam0s/camo/main/camFR.m3u
 #EXTINF:-1 group-title="News",BFM French
 https://viamotionhsi.netplus.ch/live/eds/bfmtv/browser-HLS8/bfmtv.m3u8
 
-#EXTINF:-1 group-title="News",FranceInfoTEST
+#EXTINF:-1 group-title="News",FranceInfo-OK
 https://viamotionhsi.netplus.ch/live/eds/franceinfo/browser-HLS8/franceinfo.m3u88
 
 #EXTINF:-1 group-title="News",Sky News
