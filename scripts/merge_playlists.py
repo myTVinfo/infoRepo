@@ -1,17 +1,26 @@
 #!/usr/bin/env python3
-import re
-import sys
 import urllib.request
 
 SOURCES = [
     ("iptv-org", "https://iptv-org.github.io/iptv/index.m3u"),
     ("Free-TV", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"),
     ("Webcam FR", "https://raw.githubusercontent.com/El-cam0s/camo/main/camFR.m3u"),
+]
 
-    # === CHAÎNES DIRECTES ===
-    ("BFM-OK", "https://viamotionhsi.netplus.ch/live/eds/bfmtv/browser-HLS8/bfmtv.m3u8"),
-    ("FranceInfoOK", "https://viamotionhsi.netplus.ch/live/eds/franceinfo/browser-HLS8/franceinfo.m3u88"),
-    ("Sky News 1080p", "https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8"),
+# === AJOUT DES 3 CHAÎNES ===
+DIRECT_CHANNELS = [
+    (
+        '#EXTINF:-1 group-title="News",BFM-OK',
+        "https://viamotionhsi.netplus.ch/live/eds/bfmtv/browser-HLS8/bfmtv.m3u8",
+    ),
+    (
+        '#EXTINF:-1 group-title="News",FranceInfo-OK',
+        "https://viamotionhsi.netplus.ch/live/eds/franceinfo/browser-HLS8/franceinfo.m3u8",
+    ),
+    (
+        '#EXTINF:-1 group-title="News",Sky News 1080p',
+        "https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8",
+    ),
 ]
 
 OUTFILE = "playlist-final.m3u"
@@ -20,73 +29,61 @@ OUTFILE = "playlist-final.m3u"
 def fetch(url: str) -> str:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "Mozilla/5.0 (GitHub Actions)"},
+        headers={"User-Agent": "Mozilla/5.0"},
     )
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8", errors="replace")
 
 
-def normalize_m3u(text: str) -> str:
-    # Normalize newlines and ensure header exists
-    text = text.replace("\r\n", "\n").replace("\r", "\n")
-    lines = [ln.strip() for ln in text.split("\n") if ln.strip() != ""]
-    if not lines:
-        return "#EXTM3U\n"
-    if lines[0] != "#EXTM3U":
-        lines.insert(0, "#EXTM3U")
-    return "\n".join(lines) + "\n"
+def parse_m3u(text: str):
+    lines = text.replace("\r", "").split("\n")
+    entries = []
+    current = None
 
-
-def iter_entries(lines):
-    # Yields (#EXTINF line, url line) pairs
-    extinf = None
-    for ln in lines:
-        if ln.startswith("#EXTINF:"):
-            extinf = ln
+    for line in lines:
+        line = line.strip()
+        if not line:
             continue
-        if ln.startswith("http://") or ln.startswith("https://"):
-            if extinf:
-                yield extinf, ln
-            extinf = None
 
+        if line.startswith("#EXTINF"):
+            current = line
+        elif not line.startswith("#") and current:
+            entries.append((current, line))
+            current = None
 
-def key_for(extinf: str, url: str) -> str:
-    # Prefer tvg-id if present, else url
-    m = re.search(r'tvg-id="([^"]+)"', extinf)
-    if m and m.group(1).strip():
-        return "tvgid:" + m.group(1).strip().lower()
-    return "url:" + url.strip().lower()
+    return entries
 
 
 def main():
-    merged = ["#EXTM3U"]
-    seen = set()
-    total = 0
-    kept = 0
+    output = ["#EXTM3U"]
+    seen_urls = set()
 
+    # === SOURCES ===
     for name, url in SOURCES:
         try:
-            raw = fetch(url)
-        except Exception as e:
-            print(f"[WARN] Failed to fetch {name}: {url} ({e})", file=sys.stderr)
+            content = fetch(url)
+            entries = parse_m3u(content)
+
+            for extinf, stream in entries:
+                if stream not in seen_urls:
+                    output.append(extinf)
+                    output.append(stream)
+                    seen_urls.add(stream)
+
+        except Exception:
             continue
 
-        norm = normalize_m3u(raw)
-        lines = norm.split("\n")
-        for extinf, media_url in iter_entries(lines):
-            total += 1
-            k = key_for(extinf, media_url)
-            if k in seen:
-                continue
-            seen.add(k)
-            merged.append(extinf)
-            merged.append(media_url)
-            kept += 1
+    # === CHAÎNES DIRECTES ===
+    for extinf, stream in DIRECT_CHANNELS:
+        if stream not in seen_urls:
+            output.append(extinf)
+            output.append(stream)
+            seen_urls.add(stream)
 
+    # === WRITE FILE ===
     with open(OUTFILE, "w", encoding="utf-8") as f:
-        f.write("\n".join(merged).strip() + "\n")
+        f.write("\n".join(output) + "\n")
 
-    print(f"[OK] Wrote {OUTFILE}: kept={kept} total_seen={total}")
 
 if __name__ == "__main__":
     main()
