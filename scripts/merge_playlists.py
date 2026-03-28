@@ -7,6 +7,11 @@ SOURCES = [
     ("iptv-org", "https://iptv-org.github.io/iptv/index.m3u"),
     ("Free-TV", "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"),
     ("Webcam FR", "https://raw.githubusercontent.com/El-cam0s/camo/main/camFR.m3u"),
+
+    # === CHAÎNES DIRECTES ===
+    ("BFM-OK", "https://viamotionhsi.netplus.ch/live/eds/bfmtv/browser-HLS8/bfmtv.m3u8"),
+    ("FranceInfoOK", "https://viamotionhsi.netplus.ch/live/eds/franceinfo/browser-HLS8/franceinfo.m3u88"),
+    ("Sky News 1080p", "https://linear417-gb-hls1-prd-ak.cdn.skycdp.com/100e/Content/HLS_001_1080_30/Live/channel(skynews)/index_1080-30.m3u8"),
 ]
 
 OUTFILE = "playlist-final.m3u"
