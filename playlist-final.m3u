@@ -24585,6 +24585,28 @@ http://190.93.224.42/EXITOSA/index.m3u8
 https://redirector.rudo.video/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latina/latina.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="Belsat" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Belsat_%282022%29.svg/960px-Belsat_%282022%29.svg.png" tvg-id="BelsatTV.pl" tvg-chno="36" tvg-country="PL" group-title="Poland",Belsat
 https://iptv.prosto.tv/ch171/index.m3u8
+#EXTINF:-1 tvg-name="Disco Polo Music (1080p)" tvg-logo="https://i.imgur.com/ZZbuTv7.png" tvg-id="DiscoPoloMusic.pl" tvg-chno="34" tvg-country="PL" group-title="Poland",Disco Polo Music (1080p)
+http://185.227.34.179:8080/disco-polo-music/index.m3u8
+#EXTINF:-1 tvg-name="Nickelodeon (Poland) (576i)" tvg-logo="https://i.imgur.com/E84jnP8.png" tvg-id="Nickelodeon.pl" tvg-chno="78" tvg-country="PL" group-title="Poland",Nickelodeon (Poland) (576i) Ⓢ
+http://92.114.85.87:8013/play/a005/index.m3u8
+#EXTINF:-1 tvg-name="Polsat JimJam (576p)" tvg-logo="https://i.imgur.com/GjppUlg.png" tvg-id="PolsatJimJam.pl" tvg-chno="90" tvg-country="PL" group-title="Poland",Polsat JimJam (576p) Ⓢ
+http://185.227.34.179:8080/jimjam/index.m3u8
+#EXTINF:-1 tvg-name="Strongman Champions League (720p)" tvg-logo="https://images-0.rakuten.tv/storage/global-live-channel/translation/artwork/30ccc088-dca7-4458-ad5a-328fef06e1ca-width200-quality90.png" tvg-id="StrongmanChampionsLeague.uk" tvg-chno="122" tvg-country="PL" group-title="Poland",Strongman Champions League (720p)
+https://rightsboosterltd-scl-1-be.samsung.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-name="TNA Wrestling Channel (720p)" tvg-logo="https://provider-static.plex.tv/epg/cms/production/5d4f68c3-82af-45e7-b2c4-39aff69f3ce0/TNAWrestling_Plex_LogoforDarkBG_1500x1000_-_Alex_TushinghamRDX.png" tvg-id="TNAWrestlingChannel.pl" tvg-chno="137" tvg-country="PL" group-title="Poland",TNA Wrestling Channel (720p)
+https://jmp2.uk/plu-59b722526996084038c01e1b.m3u8
+#EXTINF:-1 tvg-name="TVP ABC (576i)" tvg-logo="https://i.imgur.com/wP2mpfM.png" tvg-id="TVPABC.pl" tvg-chno="160" tvg-country="PL" group-title="Poland",TVP ABC (576i) Ⓢ
+http://92.114.85.87:8002/play/a00b/index.m3u8
+#EXTINF:-1 tvg-name="TVP Historia (576i)" tvg-logo="https://i.imgur.com/Bc4QZiy.png" tvg-id="TVPHistoria.pl" tvg-chno="162" tvg-country="PL" group-title="Poland",TVP Historia (576i) Ⓢ
+http://92.114.85.87:8002/play/a00d/index.m3u8
+#EXTINF:-1 tvg-name="TVP Kultura (1080p)" tvg-logo="https://i.imgur.com/JU858Es.png" tvg-id="TVPKultura.pl" tvg-chno="164" tvg-country="PL" group-title="Poland",TVP Kultura (1080p)
+http://92.114.85.87:8006/play/a007/index.m3u8
+#EXTINF:-1 tvg-name="TVP Seriale (1080p)" tvg-logo="https://i.imgur.com/MuRtvXk.png" tvg-id="TVPSeriale.pl" tvg-chno="167" tvg-country="PL" group-title="Poland",TVP Seriale (1080p)
+http://92.114.85.87:8019/play/a00a/index.m3u8
+#EXTINF:-1 tvg-name="Wydarzenia 24 (576i)" tvg-logo="https://i.imgur.com/uYpUnHP.png" tvg-id="Wydarzenia24.pl" tvg-chno="188" tvg-country="PL" group-title="Poland",Wydarzenia 24 (576i) Ⓢ
+http://92.114.85.87:8016/play/a007/index.m3u8
+#EXTINF:-1 tvg-name="Zoom TV (576i)" tvg-logo="https://i.imgur.com/UtZM4zm.png" tvg-id="ZoomTV.pl" tvg-chno="189" tvg-country="PL" group-title="Poland",Zoom TV (576i) Ⓢ
+http://92.114.85.87:8001/play/a00y/index.m3u8
 #EXTINF:-1 tvg-name="RTP1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/RTP1_-_Logo_2016.svg/500px-RTP1_-_Logo_2016.svg.png" tvg-id="RTP1.pt" tvg-chno="1" tvg-country="PT" group-title="Portugal",RTP1
 https://streaming-live.rtp.pt/liverepeater/smil:rtp1HD.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="RTP3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/b9/Rtp3.png" tvg-id="RTP3.pt" tvg-chno="3" tvg-country="PT" group-title="Portugal",RTP3
